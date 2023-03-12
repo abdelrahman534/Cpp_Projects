@@ -1,0 +1,126 @@
+#include "bits/stdc++.h"
+using namespace std;
+class Caesar {
+
+public:
+
+    int selection = 0;
+
+    string cipher(string s, int k) {
+        string s2;
+        for (char c: s) {
+            if (c == ' ') {
+                s2 += c;
+            } else {
+                if (c == 'z') {
+                    c = 'a';
+                } else {
+                    int val = c - 'a';
+                    val = (val + k) % 26;
+                    char c2 = 'a' + val;
+                    s2 += c2;
+                }
+            }
+        }
+        return s2;
+    }
+
+    string decipher(string s, int k) {
+        string s2;
+        for (char c : s) {
+            if (c == ' ') {
+                s2 += c;  // add the space character as it is
+            } else {
+                int val = c - 'a';
+                val = (val - k + 26) % 26;  // shift back by subtracting k, and add 26 to handle negative values
+                char c2 = 'a' + val;
+                s2 += c2;
+            }
+        }
+        return s2;
+    }
+};
+/*
+ To create a Caesar cipher decipher function, we can reverse the shift applied by the encryption function. In this case, we can shift each letter in the opposite direction by subtracting k from its numerical value,
+ while taking care to wrap around if necessary.
+The function takes the encrypted string s and the shift amount k as input parameters, and returns the decrypted string s2.
+ It works in a similar way to the encryption function,
+ but with the opposite shift direction.
+We first check if the character is a space or a letter, and handle them differently. For a letter, we calculate its numerical value as before,
+ but we subtract k from it instead of adding it.
+ To handle negative values after the subtraction, we add 26 to ensure that the result is always positive and
+ within the range of 0 to 25. Finally, we convert the resulting numerical value back to its corresponding ASCII character code by
+ adding 'a', and add the character to the output string s2.
+
+In summary, the caesar_decipher function takes an encrypted string and a shift amount, and returns the original message by reversing the Caesar cipher encryption applied by the shift function.
+ */
+
+int main() {
+    Caesar junuu;
+    string str;
+    string de_str;
+    int shift_operator = 0;
+    int decipher_operator = 0;
+
+    while (true) {
+        cout << " ****Encryption / Decryption SYSTEM**** \n";
+        cout << "\n1 > Encrypting\n";
+        cout << "\n2 > Decrypting\n";
+        cout << "\n3 > Exiting\n";
+        cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n";
+        cout << "\n<<<Your Selection is?>>> :";
+        cin >> junuu.selection;
+        switch (junuu.selection) {
+            case 1:
+
+                //cipehr
+
+                cout << "type the word to be ciphered : ";
+                cin.ignore();
+                getline(cin, str);
+                cout << "\nType the key AKA (number of shifts) : ";
+                cin >> shift_operator;
+                cout << junuu.cipher(str, shift_operator) << endl;
+                break;
+
+            case 2:
+
+                //decipher
+
+                cout << "type the word to be deciphered : ";
+                cin.ignore();
+                getline(cin, de_str);
+                cout << "\nType the key AKA (number of shifts) : ";
+                cin >> decipher_operator;
+                cout << junuu.decipher(de_str, decipher_operator) << endl;
+                break;
+            case 3:
+                exit(1);
+                break;
+            default:
+                cout << "\t<<<INVALID SELECTION.ENTER A VALUE BETWEEN 1 & 3>>>\t\n";
+                break;
+        }
+        system("pause"); // wait for user input to continue
+        system("cls"); // clear the console screen
+    }
+
+}
+//A method that I liked
+
+//#include <bits/stdc++.h>
+//using namespace std;
+//
+//int main(){
+//    vector<string> words;
+//    string cipher;
+//    while (cin >> cipher){  //ctrl + Z == EOF.
+//        for (auto& ch : cipher){
+//            ch = ((ch == 'z') ? 'a' : (ch + 1));
+//        }
+//        words.push_back(cipher);
+//    }
+//    for (auto word: words){
+//        cout << word << ' ';
+//    }
+//}
