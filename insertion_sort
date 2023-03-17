@@ -1,0 +1,45 @@
+#include "iostream"
+#include "chrono"
+
+using namespace std;
+
+void insertion_sort(int arr[], int size) {
+    int key, j;
+    for (int i = 1; i < size; i++) {
+        key = arr[i];
+        j = i - 1;
+        while (j >= 0 && arr[j] > key) {//shifting condition
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
+
+void print_array(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << " ";
+    }
+}
+
+int main() {
+    // Start the clock
+    auto start = chrono::steady_clock::now();
+    int size;
+    int arr[size];
+    cout << "Type the Array desired size : " << endl;
+    cin >> size;
+    cout << "Type the desired array elements : " << endl;
+    for (int i = 0; i < size; i++) {
+        cin >> arr[i];
+    }
+    insertion_sort(arr, size);
+    cout << "The array sorted : \n";
+    print_array(arr, size);
+    // Stop the clock
+    auto stop = chrono::steady_clock::now();
+    // Calculate the elapsed time
+    auto duration = chrono::duration_cast<chrono::microseconds>(stop - start);
+    // Output the elapsed time in microseconds
+    cout << "\nElapsed time: " << duration.count() << " microseconds" << endl;
+}
